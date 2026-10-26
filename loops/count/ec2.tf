@@ -1,12 +1,13 @@
 
-resource "aws_instance" "example" {
-  count = 10
+resource "aws_instance" "Roboshop" {
+  #count = 10
+  count = length(var.instance)
   ami           = "ami-0055977a6e828a4f4"
   instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
   tags = {
-    Name = "mongod"
+    Name = var.instance[count.index]
     Project = "Roboshop"
   }
 }
