@@ -1,9 +1,18 @@
 
+resource "aws_instance" "example" {
+  ami           = "ami-0055977a6e828a4f4"
+  instance_type = "t3.micro"
+  vpc_security_group_ids = [aws_security_group.allow_tls.id]
+
+  tags = {
+    Name = "terraform"
+    Project = "Roboshop"
+  }
+}
 
 resource "aws_security_group" "allow_tls" {
   name        = "allow_all_terraform" # this is for aws account
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.main.id
 
   egress {
     from_port        = 0
